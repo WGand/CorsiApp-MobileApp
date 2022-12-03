@@ -1,6 +1,7 @@
+import 'package:dartz/dartz.dart';
 import 'package:corsiapp/Domain/Course/lesson.dart';
-import 'package:corsiapp/Domain/Course/course.dart';
+import 'package:corsiapp/Utilities/failure.dart';
 
 abstract class ILessonRepository {
-  Future<List<Lesson>> findLessonsByCourseId(int courseId);
+  Future<Either<Failure, List<Lesson>>> findLessonsByCourseId(int courseId);
 }
