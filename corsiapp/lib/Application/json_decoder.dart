@@ -6,7 +6,7 @@ class JsonDecoder {
 
   JsonDecoder(this.response);
 
-  List<Course> parseCourse() {
+  Future<List<Course>> parseCourse() {
     final parsed = jsonDecode(response).cast<Map<String, dynamic>>();
 
     return parsed.map<Course>((json) => Course.fromJson(json)).toList();
