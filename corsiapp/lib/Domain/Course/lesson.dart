@@ -14,4 +14,10 @@ class Lesson extends Equatable {
         lessonId,
         lessonTitle,
       ];
+
+  factory Lesson.fromJson(Map<String, dynamic> json) {
+    return Lesson(
+        lessonId: json['lessonId'] as int,
+        lessonTitle: json['lessonTitle'] as String);
+  }
 }
