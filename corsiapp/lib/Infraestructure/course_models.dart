@@ -5,21 +5,15 @@ class CourseModel extends Course {
       {required super.id,
       required super.title,
       required super.urlImage,
-      required super.description,
-      required super.lessons});
+      required super.description});
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'title': title,
         'urlImage': urlImage,
         'description': description,
-        "lessons": []
       };
 
   Course toEntity() => Course(
-      id: id,
-      title: title,
-      urlImage: urlImage,
-      description: description,
-      lessons: lessons);
+      id: id, title: title, urlImage: urlImage, description: description);
 }
