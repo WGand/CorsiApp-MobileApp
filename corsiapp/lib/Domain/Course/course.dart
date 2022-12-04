@@ -20,7 +20,7 @@ class Course extends Equatable {
     return Course(
         id: json['id'] as int,
         title: json['title'] as String,
-        urlImage: json['urlImage'] as String,
+        urlImage: json['urlimage'] as String,
         description: json['description'] as String,
         lessons: json['lessons'] as List<Lesson>);
   }

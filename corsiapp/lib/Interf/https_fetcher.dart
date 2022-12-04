@@ -9,7 +9,7 @@ Future<JsonDecoder> fetchCourse() async {
     // then parse the JSON.
     return (JsonDecoder(response.body));
   } else {
-    // If the server did not return a 20z0 OK response,
+    // If the server did not return a 200 OK response,
     // then throw an exception.
     throw Exception('Failed to htpps');
   }
