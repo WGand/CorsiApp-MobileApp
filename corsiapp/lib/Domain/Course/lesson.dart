@@ -9,15 +9,15 @@ class Lesson extends Equatable {
   final int lessonId;
   final String lessonTitle;
 
+  factory Lesson.fromJson(Map<String, dynamic> json) {
+    final int lessonId = int.parse(json['lessonId']);
+    final String lessonTitle = json['lessonTitle'].toString();
+    return Lesson(lessonId: lessonId, lessonTitle: lessonTitle);
+  }
+
   @override
   List<Object?> get props => [
         lessonId,
         lessonTitle,
       ];
-
-  factory Lesson.fromJson(Map<String, dynamic> json) {
-    return Lesson(
-        lessonId: json['lessonId'] as int,
-        lessonTitle: json['lessonTitle'] as String);
-  }
 }

@@ -1,5 +1,5 @@
 import 'package:corsiapp/Domain/Course/course.dart';
-import 'package:corsiapp/Infraestructure/remote_data_source.dart';
+import 'package:corsiapp/Infraestructure/remote_data_source_Course.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
