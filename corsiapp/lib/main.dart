@@ -1,6 +1,6 @@
 import 'package:corsiapp/Domain/Course/course.dart';
 import 'package:corsiapp/Infraestructure/https_fetcher.dart';
-import 'Application/json_decoder.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
 void main() {
@@ -44,7 +44,7 @@ class MyHomePage extends StatelessWidget {
         title: Text(title),
       ),
       body: FutureBuilder<List<Course>>(
-        future: parseCourse(),
+        future: fetchCourse(http.Client()),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const Center(

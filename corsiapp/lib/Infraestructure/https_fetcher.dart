@@ -1,17 +1,20 @@
-import 'package:http/http.dart' as http;
-import 'package:corsiapp/Application/json_decoder.dart';
+import 'dart:convert';
 
-Future<JsonDecoder> fetchCourse() async {
-  final response = await http
+import 'package:corsiapp/Domain/Course/course.dart';
+import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
+
+Future<List<Course>> fetchCourse(http.Client client) async {
+  final response = await client
       .get(Uri.parse('https://638c1e60eafd555746a0b852.mockapi.io/Course'));
 
-  if (response.statusCode == 200) {
-    // If the server did return a 200 OK response,
-    // then parse the JSON.
-    return (JsonDecoder(response.body));
-  } else {
-    // If the server did not return a 200 OK response,
-    // then throw an exception.
-    throw Exception('Failed to htpps');
-  }
+  // Use the compute function to run parsePhotos in a separate isolate.
+  return compute(parseCourse, response.body);
+}
+
+// A function that converts a response body into a List<Photo>.
+List<Course> parseCourse(String responseBody) {
+  final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
+
+  return parsed.map<Course>((json) => Course.fromJson(json)).toList();
 }
