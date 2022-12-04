@@ -1,5 +1,5 @@
 import 'package:corsiapp/Domain/Course/course.dart';
-import 'package:corsiapp/Infraestructure/https_fetcher.dart';
+import 'package:corsiapp/Infraestructure/remote_data_source.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
@@ -44,7 +44,7 @@ class MyHomePage extends StatelessWidget {
         title: Text(title),
       ),
       body: FutureBuilder<List<Course>>(
-        future: fetchCourse(http.Client()),
+        future: RemoteDataSourceImpl(client: http.Client()).getCoursefromAPI(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const Center(
