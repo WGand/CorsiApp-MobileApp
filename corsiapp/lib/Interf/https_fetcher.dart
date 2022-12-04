@@ -2,7 +2,8 @@ import 'package:http/http.dart' as http;
 import 'package:corsiapp/Application/json_decoder.dart';
 
 Future<JsonDecoder> fetchCourse() async {
-  final response = await http.get(Uri.parse('https://apifalso'));
+  final response = await http
+      .get(Uri.parse('https://638c1e60eafd555746a0b852.mockapi.io/get'));
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
