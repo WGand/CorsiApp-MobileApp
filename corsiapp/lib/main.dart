@@ -1,6 +1,4 @@
-import 'package:corsiapp/Domain/Course/course.dart';
 import 'package:corsiapp/Domain/Course/lesson.dart';
-import 'package:corsiapp/Infraestructure/remote_data_source_Course.dart';
 import 'package:corsiapp/Infraestructure/remote_data_source_Lesson.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -49,7 +47,6 @@ class MyHomePage extends StatelessWidget {
         future: RemoteDataSourceImplLesson(client: http.Client(), 1)
             .getLessonfromAPI(),
         builder: (context, snapshot) {
-          print(snapshot);
           if (snapshot.hasError) {
             return const Center(
               child: Text('An error has occurred!'),

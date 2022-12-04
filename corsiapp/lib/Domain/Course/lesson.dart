@@ -12,9 +12,9 @@ class Lesson extends Equatable {
   final String lessonTitle;
 
   factory Lesson.fromJson(Map<String, dynamic> json) {
-    final int lessonId = int.parse(json['lessonId']);
+    final int lessonId = int.parse(json['id']);
     final int courseId = int.parse(json['CourseId']);
-    final String lessonTitle = json['lessonTitle'].toString();
+    final String lessonTitle = json['title'].toString();
     return Lesson(
         courseId: courseId, lessonId: lessonId, lessonTitle: lessonTitle);
   }
