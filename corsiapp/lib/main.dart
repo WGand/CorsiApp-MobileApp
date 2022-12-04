@@ -1,5 +1,5 @@
 import 'package:corsiapp/Domain/Course/course.dart';
-import 'package:corsiapp/Interf/https_fetcher.dart';
+import 'package:corsiapp/Infraestructure/https_fetcher.dart';
 import 'Application/json_decoder.dart';
 import 'package:flutter/material.dart';
 
@@ -28,14 +28,13 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.red,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page', a: fetchCourse()),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatelessWidget {
-  const MyHomePage(
-      {super.key, required this.title, required Future<JsonDecoder> a});
+  const MyHomePage({super.key, required this.title});
   final String title;
 
   @override
@@ -45,7 +44,7 @@ class MyHomePage extends StatelessWidget {
         title: Text(title),
       ),
       body: FutureBuilder<List<Course>>(
-        future: a.parseCourse(),
+        future: parseCourse(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const Center(
