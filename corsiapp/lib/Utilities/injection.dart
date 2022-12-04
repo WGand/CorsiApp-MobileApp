@@ -7,7 +7,7 @@ final locator = GetIt.instance;
 void init() {
   locator.registerFactory(() => CourseBloc(locator()));
 
-  locator.registerFactory(() => GetLessons(locator()));
+  locator.registerLazySingleton(() => GetLessons(locator()));
 
   // missing repository implementation
   // locator.registerLazySingleton<ILessonRepository>(
