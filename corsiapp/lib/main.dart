@@ -47,7 +47,6 @@ class MyHomePage extends StatelessWidget {
         future: RemoteDataSourceImpl(client: http.Client()).getCoursefromAPI(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            print(snapshot);
             return const Center(
               child: Text('An error has occurred!'),
             );
