@@ -16,6 +16,15 @@ class Course extends Equatable {
   final String description;
   final List<Lesson> lessons;
 
+  factory Course.fromJson(Map<String, dynamic> json) {
+    return Course(
+        id: json['id'] as int,
+        title: json['title'] as String,
+        urlImage: json['urlImage'] as String,
+        description: json['description'] as String,
+        lessons: json['lessons'] as List<Lesson>);
+  }
+
   @override
   List<Object?> get props => [
         id,

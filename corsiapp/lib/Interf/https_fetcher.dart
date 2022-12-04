@@ -8,7 +8,6 @@ Future<JsonDecoder> fetchCourse() async {
     // If the server did return a 200 OK response,
     // then parse the JSON.
     return (JsonDecoder(response.body));
-    ;
   } else {
     // If the server did not return a 20z0 OK response,
     // then throw an exception.
