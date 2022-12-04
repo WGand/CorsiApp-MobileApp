@@ -1,5 +1,7 @@
 import 'package:corsiapp/Domain/Course/course.dart';
+import 'package:corsiapp/Domain/Course/lesson.dart';
 import 'package:corsiapp/Infraestructure/remote_data_source_Course.dart';
+import 'package:corsiapp/Infraestructure/remote_data_source_Lesson.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
@@ -43,15 +45,17 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text(title),
       ),
-      body: FutureBuilder<List<Course>>(
-        future: RemoteDataSourceImpl(client: http.Client()).getCoursefromAPI(),
+      body: FutureBuilder<List<Lesson>>(
+        future: RemoteDataSourceImplLesson(client: http.Client(), 1)
+            .getLessonfromAPI(),
         builder: (context, snapshot) {
+          print(snapshot);
           if (snapshot.hasError) {
             return const Center(
               child: Text('An error has occurred!'),
             );
           } else if (snapshot.hasData) {
-            return CourseList(course: snapshot.data!);
+            return LessonList(lesson: snapshot.data!);
           } else {
             return const Center(
               child: CircularProgressIndicator(),
@@ -63,10 +67,10 @@ class MyHomePage extends StatelessWidget {
   }
 }
 
-class CourseList extends StatelessWidget {
-  const CourseList({super.key, required this.course});
+class LessonList extends StatelessWidget {
+  const LessonList({super.key, required this.lesson});
 
-  final List<Course> course;
+  final List<Lesson> lesson;
 
   @override
   Widget build(BuildContext context) {
@@ -74,10 +78,10 @@ class CourseList extends StatelessWidget {
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
       ),
-      itemCount: course.length,
+      itemCount: lesson.length,
       itemBuilder: (context, index) {
         return ListTile(
-          title: Text(course[index].title),
+          title: Text(lesson[index].lessonTitle),
         );
       },
     );

@@ -6,14 +6,14 @@ abstract class RemoteDataSource {
   Future<List<Course>> getCoursefromAPI();
 }
 
-class RemoteDataSourceImpl implements RemoteDataSource {
+class RemoteDataSourceImplCourse implements RemoteDataSource {
   final http.Client client;
-  RemoteDataSourceImpl({required this.client});
+  RemoteDataSourceImplCourse({required this.client});
 
   @override
   Future<List<Course>> getCoursefromAPI() async {
-    final response = await client
-        .get(Uri.parse('https://638c1e60eafd555746a0b852.mockapi.io/Course'));
+    final response = await client.get(Uri.parse(
+        'https://638d2212eafd555746b5c932.mockapi.io/CorsiApp/Courses'));
 
     if (response.statusCode == 200) {
       return parseCourse(response.body);
