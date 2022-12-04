@@ -23,11 +23,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     }
   }
 
-  // A function that converts a response body into a List<Photo>.
   List<Course> parseCourse(String responseBody) {
     final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
-    print(responseBody);
-    print(parsed);
     return parsed.map<Course>((json) => Course.fromJson(json)).toList();
   }
 }

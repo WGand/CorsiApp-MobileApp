@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:corsiapp/Domain/Course/lesson.dart';
 
 class Course extends Equatable {
   const Course(
@@ -14,12 +13,12 @@ class Course extends Equatable {
   final String description;
 
   factory Course.fromJson(Map<String, dynamic> json) {
-    print('IMPRIME');
+    final int id = int.parse(json['id']);
+    final String title = json['title'].toString();
+    final String urlImage = json['urlimage'].toString();
+    final String description = json['description'].toString();
     return Course(
-        id: json['id'] as int,
-        title: json['title'] as String,
-        urlImage: json['urlimage'] as String,
-        description: json['description'] as String);
+        id: id, title: title, urlImage: urlImage, description: description);
   }
 
   @override

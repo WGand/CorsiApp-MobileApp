@@ -47,6 +47,7 @@ class MyHomePage extends StatelessWidget {
         future: RemoteDataSourceImpl(client: http.Client()).getCoursefromAPI(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
+            print(snapshot);
             return const Center(
               child: Text('An error has occurred!'),
             );
@@ -76,7 +77,9 @@ class CourseList extends StatelessWidget {
       ),
       itemCount: course.length,
       itemBuilder: (context, index) {
-        return Image.network(course[index].urlImage);
+        return ListTile(
+          title: Text(course[index].title),
+        );
       },
     );
   }
