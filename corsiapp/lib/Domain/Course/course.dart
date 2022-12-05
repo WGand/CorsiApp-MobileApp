@@ -23,4 +23,12 @@ class Course extends Equatable {
 
   @override
   List<Object?> get props => [id, title, urlImage, description];
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'urlImage': urlImage,
+      'description': description,
+    };
+  }
 }

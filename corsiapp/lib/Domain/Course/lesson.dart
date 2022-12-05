@@ -21,4 +21,12 @@ class Lesson extends Equatable {
 
   @override
   List<Object?> get props => [courseId, lessonId, lessonTitle];
+
+  Map<String, dynamic> toMap() {
+    return {
+      'courseId': courseId,
+      'lessonId': lessonId,
+      'lessonTitle': lessonTitle,
+    };
+  }
 }
