@@ -3,10 +3,10 @@ import 'package:corsiapp/Application/get_lessons.dart';
 import 'package:corsiapp/Presentation/bloc/lesson_event.dart';
 import 'package:corsiapp/Presentation/bloc/lesson_state.dart';
 
-class CourseBloc extends Bloc<LessonEvent, LessonState> {
+class LessonBloc extends Bloc<LessonEvent, LessonState> {
   final GetLessons _getCurrentCourse;
 
-  CourseBloc(this._getCurrentCourse) : super(LessonEmpty()) {
+  LessonBloc(this._getCurrentCourse) : super(LessonEmpty()) {
     on<LessonsRequested>((event, emit) async {
       final courseId = event.courseId;
 

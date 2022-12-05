@@ -5,7 +5,7 @@ import 'package:get_it/get_it.dart';
 final locator = GetIt.instance;
 
 void init() {
-  locator.registerFactory(() => CourseBloc(locator()));
+  locator.registerFactory(() => LessonBloc(locator()));
 
   locator.registerLazySingleton(() => GetLessons(locator()));
 
