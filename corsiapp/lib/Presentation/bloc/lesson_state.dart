@@ -22,6 +22,15 @@ class LessonError extends LessonState {
   List<Object?> get props => [message];
 }
 
+class LoadCourse extends LessonState {
+  final List<Course> courses;
+
+  const LoadCourse(this.courses);
+
+  @override
+  List<Object?> get props => [courses];
+}
+
 class LessonHasData extends LessonState {
   final List<Lesson> lessons;
 

@@ -15,3 +15,5 @@ class LessonsRequested extends LessonEvent {
   @override
   List<Object?> get props => [courseId];
 }
+
+class CourseRequested extends LessonEvent {}

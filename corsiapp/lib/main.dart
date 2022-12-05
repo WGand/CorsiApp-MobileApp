@@ -1,5 +1,7 @@
 import 'package:corsiapp/Domain/Course/lesson.dart';
 import 'package:corsiapp/Infraestructure/remote_data_source_Lesson.dart';
+import 'package:corsiapp/Presentation/bloc/lesson_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
@@ -7,59 +9,63 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 import 'package:corsiapp/Domain/Course/course.dart';
+import 'package:corsiapp/Utilities/injection.dart' as di;
+import 'Presentation/bloc/course_bloc.dart';
+import 'Presentation/pages/course.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  di.init();
+  // WidgetsFlutterBinding.ensureInitialized();
 
-  final database = openDatabase(
-    join(await getDatabasesPath(), 'corsidb.db'),
-    onCreate: (db, version) {
-      db.execute(
-          'CREATE TABLE Course(id INTEGER PRIMARY KEY, title TEXT, urlImage TEXT, description TEXT)');
-      db.execute(
-          'CREATE TABLE Lesson(courseId INTEGER, lessonId INTEGER PRIMARY KEY, lessonTitle TEXT, FOREIGN KEY (courseId) REFERENCES Course(id)');
-    },
-    version: 1,
-  );
+  // final database = openDatabase(
+  //   join(await getDatabasesPath(), 'corsidb.db'),
+  //   onCreate: (db, version) {
+  //     db.execute(
+  //         'CREATE TABLE Course(id INTEGER PRIMARY KEY, title TEXT, urlImage TEXT, description TEXT)');
+  //     db.execute(
+  //         'CREATE TABLE Lesson(courseId INTEGER, lessonId INTEGER PRIMARY KEY, lessonTitle TEXT, FOREIGN KEY (courseId) REFERENCES Course(id)');
+  //   },
+  //   version: 1,
+  // );
 
-  Future<void> insertCourse(Course course) async {
-    final db = await database;
+  // Future<void> insertCourse(Course course) async {
+  //   final db = await database;
 
-    await db.insert('Course', course.toMap());
-  }
+  //   await db.insert('Course', course.toMap());
+  // }
 
-  Future<void> insertLesson(Lesson lesson) async {
-    final db = await database;
+  // Future<void> insertLesson(Lesson lesson) async {
+  //   final db = await database;
 
-    await db.insert('Lesson', lesson.toMap());
-  }
+  //   await db.insert('Lesson', lesson.toMap());
+  // }
 
-  Future<List<Course>> courses() async {
-    final db = await database;
+  // Future<List<Course>> courses() async {
+  //   final db = await database;
 
-    final List<Map<String, dynamic>> maps = await db.query('Course');
+  //   final List<Map<String, dynamic>> maps = await db.query('Course');
 
-    return List.generate(maps.length, (i) {
-      return Course(
-          id: maps[i]['id'],
-          title: maps[i]['title'],
-          urlImage: maps[i]['urlImage'],
-          description: maps[i]['description']);
-    });
-  }
+  //   return List.generate(maps.length, (i) {
+  //     return Course(
+  //         id: maps[i]['id'],
+  //         title: maps[i]['title'],
+  //         urlImage: maps[i]['urlImage'],
+  //         description: maps[i]['description']);
+  //   });
+  // }
 
-  Future<List<Lesson>> lessons() async {
-    final db = await database;
+  // Future<List<Lesson>> lessons() async {
+  //   final db = await database;
 
-    final List<Map<String, dynamic>> maps = await db.query('Lesson');
+  //   final List<Map<String, dynamic>> maps = await db.query('Lesson');
 
-    return List.generate(maps.length, (i) {
-      return Lesson(
-          courseId: maps[i]['courseId'],
-          lessonId: maps[i]['lessonId'],
-          lessonTitle: maps[i]['lessonTitle']);
-    });
-  }
+  //   return List.generate(maps.length, (i) {
+  //     return Lesson(
+  //         courseId: maps[i]['courseId'],
+  //         lessonId: maps[i]['lessonId'],
+  //         lessonTitle: maps[i]['lessonTitle']);
+  //   });
+  // }
 
   runApp(const MyApp());
 }
@@ -71,71 +77,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //3232
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.red,
-      ),
-      home: CoursePage(),
-    );
-  }
-}
-
-class CoursePage extends StatelessWidget {
-  const CoursePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: const Text('Prueba'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: ListView(
-          padding: EdgeInsets.zero,
-          scrollDirection: Axis.vertical,
-          children: [
-            Card(
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              color: const Color(0xFFF5F5F5),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.network(
-                      'https://picsum.photos/seed/31/600',
-                      width: 100,
-                      height: 100,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  // ignore: prefer_const_constructors
-                  Align(
-                    alignment: const AlignmentDirectional(0, 0),
-                    child: const Text(
-                      'Hello World',
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (_) => di.locator<LessonBloc>()),
+          BlocProvider(create: (_) => di.locator<CourseBloc>())
+        ],
+        child: MaterialApp(
+          title: 'Cursos',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: CoursePage(),
+        ));
   }
 }
 

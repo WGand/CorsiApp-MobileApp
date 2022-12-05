@@ -11,7 +11,7 @@ import 'exception.dart';
 class CourseRepositoryImpl implements ICourseRepository {
   final RemoteDataSource remoteDataSource;
 
-  CourseRepositoryImpl(this.remoteDataSource);
+  CourseRepositoryImpl({required this.remoteDataSource});
 
   @override
   Future<Either<Failure, List<Course>>> findAllCourses() async {
