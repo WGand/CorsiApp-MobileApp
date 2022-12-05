@@ -1,6 +1,66 @@
+import 'package:corsiapp/Domain/Course/lesson.dart';
+import 'package:corsiapp/Infraestructure/remote_data_source_Lesson.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
-void main() {
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
+import 'dart:async';
+import 'package:corsiapp/Domain/Course/course.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final database = openDatabase(
+    join(await getDatabasesPath(), 'corsidb.db'),
+    onCreate: (db, version) {
+      db.execute(
+          'CREATE TABLE Course(id INTEGER PRIMARY KEY, title TEXT, urlImage TEXT, description TEXT)');
+      db.execute(
+          'CREATE TABLE Lesson(courseId INTEGER, lessonId INTEGER PRIMARY KEY, lessonTitle TEXT, FOREIGN KEY (courseId) REFERENCES Course(id)');
+    },
+    version: 1,
+  );
+
+  Future<void> insertCourse(Course course) async {
+    final db = await database;
+
+    await db.insert('Course', course.toMap());
+  }
+
+  Future<void> insertLesson(Lesson lesson) async {
+    final db = await database;
+
+    await db.insert('Lesson', lesson.toMap());
+  }
+
+  Future<List<Course>> courses() async {
+    final db = await database;
+
+    final List<Map<String, dynamic>> maps = await db.query('Course');
+
+    return List.generate(maps.length, (i) {
+      return Course(
+          id: maps[i]['id'],
+          title: maps[i]['title'],
+          urlImage: maps[i]['urlImage'],
+          description: maps[i]['description']);
+    });
+  }
+
+  Future<List<Lesson>> lessons() async {
+    final db = await database;
+
+    final List<Map<String, dynamic>> maps = await db.query('Lesson');
+
+    return List.generate(maps.length, (i) {
+      return Lesson(
+          courseId: maps[i]['courseId'],
+          lessonId: maps[i]['lessonId'],
+          lessonTitle: maps[i]['lessonTitle']);
+    });
+  }
+
   runApp(const MyApp());
 }
 
@@ -15,7 +75,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
-        // sexo26
+        //3232
         // Try running your application with "flutter run". You'll see the
         // application has a blue toolbar. Then, without quitting the app, try
         // changing the primarySwatch below to Colors.green and then invoke
@@ -30,87 +90,54 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+      ),
+      body: FutureBuilder<List<Lesson>>(
+        future: RemoteDataSourceImplLesson(client: http.Client(), 1)
+            .getLessonfromAPI(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return const Center(
+              child: Text('An error has occurred!'),
+            );
+          } else if (snapshot.hasData) {
+            return LessonList(lesson: snapshot.data!);
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      ),
+    );
+  }
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class LessonList extends StatelessWidget {
+  const LessonList({super.key, required this.lesson});
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+  final List<Lesson> lesson;
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      itemCount: lesson.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Text(lesson[index].lessonTitle),
+        );
+      },
     );
   }
 }
