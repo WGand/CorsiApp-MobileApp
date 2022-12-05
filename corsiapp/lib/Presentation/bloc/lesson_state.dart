@@ -1,32 +1,31 @@
 import 'package:corsiapp/Domain/Course/lesson.dart';
 import 'package:equatable/equatable.dart';
-
 import '../../Domain/Course/course.dart';
 
-abstract class CourseState extends Equatable {
-  const CourseState();
+abstract class LessonState extends Equatable {
+  const LessonState();
 
   @override
   List<Object?> get props => [];
 }
 
-class CourseLoading extends CourseState {}
+class LessonLoading extends LessonState {}
 
-class CourseEmpty extends CourseState {}
+class LessonEmpty extends LessonState {}
 
-class CourseError extends CourseState {
+class LessonError extends LessonState {
   final String message;
 
-  CourseError(this.message);
+  const LessonError(this.message);
 
   @override
   List<Object?> get props => [message];
 }
 
-class CourseHasData extends CourseState {
+class LessonHasData extends LessonState {
   final List<Lesson> lessons;
 
-  CourseHasData(this.lessons);
+  const LessonHasData(this.lessons);
 
   @override
   List<Object?> get props => [lessons];

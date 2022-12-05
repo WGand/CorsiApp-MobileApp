@@ -1,24 +1,24 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:corsiapp/Application/get_lessons.dart';
-import 'package:corsiapp/Presentation/bloc/course_event.dart';
-import 'package:corsiapp/Presentation/bloc/course_state.dart';
+import 'package:corsiapp/Presentation/bloc/lesson_event.dart';
+import 'package:corsiapp/Presentation/bloc/lesson_state.dart';
 
-class CourseBloc extends Bloc<CourseEvent, CourseState> {
+class CourseBloc extends Bloc<LessonEvent, LessonState> {
   final GetLessons _getCurrentCourse;
 
-  CourseBloc(this._getCurrentCourse) : super(CourseEmpty()) {
+  CourseBloc(this._getCurrentCourse) : super(LessonEmpty()) {
     on<LessonsRequested>((event, emit) async {
       final courseId = event.courseId;
 
-      emit(CourseLoading());
+      emit(LessonLoading());
 
       final result = await _getCurrentCourse.execute(courseId);
       result.fold(
         (failure) {
-          emit(CourseError(failure.message));
+          emit(LessonError(failure.message));
         },
         (data) {
-          emit(CourseHasData(data));
+          emit(LessonHasData(data));
         },
       );
     });

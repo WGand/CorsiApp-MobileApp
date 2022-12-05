@@ -1,5 +1,5 @@
 import 'package:corsiapp/Application/get_lessons.dart';
-import 'package:corsiapp/Presentation/bloc/course_bloc.dart';
+import 'package:corsiapp/Presentation/bloc/lesson_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 final locator = GetIt.instance;
