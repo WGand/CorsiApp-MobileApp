@@ -79,8 +79,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
-          BlocProvider(create: (_) => di.locator<LessonBloc>()),
-          BlocProvider(create: (_) => di.locator<CourseBloc>())
+          BlocProvider(create: (context) => di.locator<LessonBloc>()),
+          BlocProvider(create: (context) => di.locator<CourseBloc>())
         ],
         child: MaterialApp(
           title: 'Cursos',
