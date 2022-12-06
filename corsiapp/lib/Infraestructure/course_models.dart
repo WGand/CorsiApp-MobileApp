@@ -1,4 +1,6 @@
 import 'package:corsiapp/Domain/Course/course.dart';
+import 'package:sqflite/sqflite.dart';
+import 'course_repository_impl.dart';
 
 class CourseModel extends Course {
   const CourseModel(
@@ -13,7 +15,4 @@ class CourseModel extends Course {
         'urlImage': urlImage,
         'description': description,
       };
-
-  Course toEntity() => Course(
-      id: id, title: title, urlImage: urlImage, description: description);
 }
