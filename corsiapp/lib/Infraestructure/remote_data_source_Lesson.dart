@@ -20,7 +20,7 @@ class RemoteDataSourceImplLesson implements RemoteDataSource {
       return parseLesson(response.body);
     } else {
       print('Busca el respositorio LECCION');
-      throw Exception();
+      return Courses();
     }
   }
 

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:corsiapp/Domain/Course/course.dart';
 import 'package:http/http.dart' as http;
+import 
 
 abstract class RemoteDataSource {
   Future<List<Course>> getCoursefromAPI();
@@ -19,7 +20,7 @@ class RemoteDataSourceImplCourse implements RemoteDataSource {
       return parseCourse(response.body);
     } else {
       print('Busca el respositorio CURSO');
-      throw Exception();
+      return Lessons();
     }
   }
 
