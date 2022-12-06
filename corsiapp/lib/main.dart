@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -6,6 +7,7 @@ import 'dart:async';
 import 'package:corsiapp/Domain/Course/course.dart';
 import 'package:corsiapp/Utilities/injection.dart' as di;
 import 'Presentation/bloc/course_bloc.dart';
+import 'Presentation/bloc/lesson_bloc.dart';
 import 'Presentation/pages/course.dart';
 
 void main() async {

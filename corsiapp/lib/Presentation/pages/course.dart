@@ -21,59 +21,61 @@ class CoursePage extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            BlocBuilder<CourseBloc, CourseState>(
-              builder: ((context, state) {
-                switch (state.runtimeType) {
-                  case CourseEmpty:
-                    {
-                      return Center(
-                        child: Text('Empty'),
-                      );
-                    }
-                  case CourseLoading:
-                    {
-                      return Center(
-                        child: Text('Loading'),
-                      );
-                    }
-                  case CourseHasData:
-                    {
-                      var lista = state.props.elementAt(0) as List<Course>;
-
-                      // return Center(
-                      //   child: Text('asdasd'),
-                      // );
-                      return ListView.builder(
-                        itemCount: lista.length,
-                        itemBuilder: ((context, index) {
-                          return ListTile(
-                            title: Text('${lista[index]}'),
+          padding: const EdgeInsets.all(24.0),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                BlocBuilder<CourseBloc, CourseState>(
+                  builder: ((context, state) {
+                    switch (state.runtimeType) {
+                      case CourseEmpty:
+                        {
+                          return Center(
+                            child: Text('Empty'),
                           );
-                        }),
-                      );
+                        }
+                      case CourseLoading:
+                        {
+                          return Center(
+                            child: Text('Loading'),
+                          );
+                        }
+                      case CourseHasData:
+                        {
+                          var lista = state.props.elementAt(0) as List<Course>;
+
+                          // return Center(
+                          //   child: Text('asdasd'),
+                          // );
+                          return ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: lista.length,
+                            itemBuilder: ((context, index) {
+                              return ListTile(
+                                title: Text('${lista[index]}'),
+                              );
+                            }),
+                          );
+                        }
+                      case CourseError:
+                        {
+                          return Center(
+                            child: Text('Error'),
+                          );
+                        }
+                      default:
+                        {
+                          return Center(
+                            child: Text('Error 3'),
+                          );
+                        }
                     }
-                  case CourseError:
-                    {
-                      return Center(
-                        child: Text('Error'),
-                      );
-                    }
-                  default:
-                    {
-                      return Center(
-                        child: Text('Error 3'),
-                      );
-                    }
-                }
-              }),
-            )
-          ],
-        ),
-      ),
+                  }),
+                )
+              ],
+            ),
+          )),
     );
   }
 
