@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:corsiapp/Domain/Course/lesson.dart';
 import 'package:http/http.dart' as http;
 
+import 'database.dart';
+
 abstract class RemoteDataSource {
   Future<List<Lesson>> getLessonfromAPI();
 }
@@ -20,8 +22,19 @@ class RemoteDataSourceImplLesson implements RemoteDataSource {
       return parseLesson(response.body);
     } else {
       print('Busca el respositorio LECCION');
-      return Courses();
+      return getLessonsfromRepo();
     }
+  }
+
+  Future<List<Lesson>> getLessonsfromRepo() async {
+    final db = await SQLliteDatabase().openDB();
+    final List<Map<String, dynamic>> maps = await db.query('Lesson');
+    return List.generate(maps.length, (i) {
+      return Lesson(
+          courseId: maps[i]['courseId'],
+          lessonId: maps[i]['lessonId'],
+          lessonTitle: maps[i]['lessonTitle']);
+    });
   }
 
   List<Lesson> parseLesson(String responseBody) {

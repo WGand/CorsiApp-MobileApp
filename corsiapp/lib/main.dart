@@ -4,11 +4,6 @@ import 'package:corsiapp/Presentation/bloc/lesson_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
-import 'dart:async';
-import 'package:corsiapp/Domain/Course/course.dart';
 import 'package:corsiapp/Utilities/injection.dart' as di;
 import 'Presentation/bloc/course_bloc.dart';
 import 'Presentation/pages/course.dart';
@@ -16,63 +11,6 @@ import 'Presentation/pages/course.dart';
 void main() async {
   di.init();
   WidgetsFlutterBinding.ensureInitialized();
-  final database = openDatabase(
-    join(await getDatabasesPath(), 'corsidb.db'),
-    onCreate: (db, version) {
-      db.execute(
-          'CREATE TABLE Course(id INTEGER PRIMARY KEY, title TEXT, urlImage TEXT, description TEXT)');
-      db.execute(
-          'CREATE TABLE Lesson(courseId INTEGER, lessonId INTEGER PRIMARY KEY, lessonTitle TEXT, FOREIGN KEY (courseId) REFERENCES Course(id)');
-    },
-    version: 1,
-  );
-  Future<void> insertCourse(Course course) async {
-    final db = await database;
-    await db.insert('Course', course.toMap());
-  }
-
-  Future<void> insertLesson(Lesson lesson) async {
-    final db = await database;
-    await db.insert('Lesson', lesson.toMap());
-  }
-
-  Future<List<Course>> courses() async {
-    final db = await database;
-    final List<Map<String, dynamic>> maps = await db.query('Course');
-    return List.generate(maps.length, (i) {
-      return Course(
-          id: maps[i]['id'],
-          title: maps[i]['title'],
-          urlImage: maps[i]['urlImage'],
-          description: maps[i]['description']);
-    });
-  }
-
-  Future<List<Lesson>> lessons() async {
-    final db = await database;
-    final List<Map<String, dynamic>> maps = await db.query('Lesson');
-    return List.generate(maps.length, (i) {
-      return Lesson(
-          courseId: maps[i]['courseId'],
-          lessonId: maps[i]['lessonId'],
-          lessonTitle: maps[i]['lessonTitle']);
-    });
-  }
-
-  Future<void> jsonCourseToBd(List<Course> courseList) async {
-    for (var i = 0; i < courseList.length; i++) {
-      Course course = courseList[i];
-      insertCourse(course);
-    }
-  }
-
-  Future<void> jsonLessonToBd(List<Lesson> lessonList) async {
-    for (var i = 0; i < lessonList.length; i++) {
-      Lesson lesson = lessonList[i];
-      insertLesson(lesson);
-    }
-  }
-
   runApp(const MyApp());
 }
 

@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'database.dart';
 import 'package:corsiapp/Domain/Course/course.dart';
 import 'package:corsiapp/Domain/Repositories/course.dart';
 import 'package:corsiapp/Infraestructure/remote_data_source_Course.dart';
@@ -22,6 +22,19 @@ class CourseRepositoryImpl implements ICourseRepository {
       return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
+    }
+  }
+
+  @override
+  Future<void> insertCourse(Course course) async {
+    final db = await SQLliteDatabase().openDB();
+    await db.insert('Course', course.toMap());
+  }
+
+  Future<void> jsonCourseToBd(List<Course> courseList) async {
+    for (var i = 0; i < courseList.length; i++) {
+      Course course = courseList[i];
+      insertCourse(course);
     }
   }
 }

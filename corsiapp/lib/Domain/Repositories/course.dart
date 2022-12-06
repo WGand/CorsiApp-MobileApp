@@ -4,4 +4,5 @@ import 'package:corsiapp/Utilities/failure.dart';
 
 abstract class ICourseRepository {
   Future<Either<Failure, List<Course>>> findAllCourses();
+  Future<void> insertCourse(Course course);
 }
