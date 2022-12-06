@@ -21,8 +21,9 @@ class CoursePage extends StatelessWidget {
         ),
       ),
       body: Padding(
-          padding: const EdgeInsets.all(24.0),
+          padding: const EdgeInsets.all(5.0),
           child: SingleChildScrollView(
+            padding: EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -51,13 +52,14 @@ class CoursePage extends StatelessWidget {
                           // );
                           return ListView.builder(
                             shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
                             itemCount: lista.length,
                             itemBuilder: ((context, index) {
                               return SizedBox(
                                   // ignore: unnecessary_new
                                   child: new Wrap(
-                                spacing: 10.0,
-                                runSpacing: 10.0,
+                                spacing: 5.0,
+                                runSpacing: 5.0,
                                 direction: Axis.horizontal,
                                 children: [
                                   Card(
