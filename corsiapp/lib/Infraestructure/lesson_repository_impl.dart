@@ -8,14 +8,14 @@ import 'package:corsiapp/Utilities/failure.dart';
 import 'exception.dart';
 
 class LessonRepositoryImpl implements ILessonRepository {
-  final RemoteDataSource remoteDataSource;
+  final RemoteDataSourceLessons remoteDataSource;
 
-  LessonRepositoryImpl(this.remoteDataSource);
+  LessonRepositoryImpl({required this.remoteDataSource});
 
   @override
   Future<Either<Failure, List<Lesson>>> findLessonsByCourseId(int id) async {
     try {
-      final result = await remoteDataSource.getLessonfromAPI();
+      final result = await remoteDataSource.getLessonfromAPI(id);
       return Right(result);
     } on ServerException {
       return const Left(ServerFailure(''));

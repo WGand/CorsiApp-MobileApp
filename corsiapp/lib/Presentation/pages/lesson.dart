@@ -1,3 +1,5 @@
+import 'dart:js_util';
+
 import 'package:corsiapp/Presentation/bloc/lesson_state.dart';
 import 'package:corsiapp/Presentation/bloc/lesson_event.dart';
 import 'package:dartz/dartz.dart';
@@ -9,11 +11,12 @@ import '../bloc/lesson_bloc.dart';
 import '../pages/course.dart';
 
 class LessonPage extends StatelessWidget {
-  const LessonPage({Key? key}) : super(key: key);
+  const LessonPage({super.key, required this.courseId});
+  final int courseId;
 
   @override
   Widget build(BuildContext context) {
-    context.read<LessonBloc>().add(LessonsRequested(0));
+    context.read<LessonBloc>().add(LessonsRequested(this.courseId));
 
     return Scaffold(
       appBar: AppBar(

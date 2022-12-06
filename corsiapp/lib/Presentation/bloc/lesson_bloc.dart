@@ -9,7 +9,6 @@ class LessonBloc extends Bloc<LessonEvent, LessonState> {
   LessonBloc(this._getCurrentCourse) : super(LessonEmpty()) {
     on<LessonsRequested>((event, emit) async {
       final courseId = event.courseId;
-
       emit(LessonLoading());
 
       final result = await _getCurrentCourse.execute(courseId);

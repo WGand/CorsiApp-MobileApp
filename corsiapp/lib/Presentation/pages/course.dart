@@ -84,7 +84,9 @@ class CoursePage extends StatelessWidget {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    LessonPage()));
+                                                    LessonPage(
+                                                        courseId:
+                                                            lista[index].id)));
                                       },
                                       child: Container(
                                         padding: EdgeInsets.all(8.0),
