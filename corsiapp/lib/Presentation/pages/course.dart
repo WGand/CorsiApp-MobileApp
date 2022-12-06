@@ -24,10 +24,11 @@ class CoursePage extends StatelessWidget {
           padding: const EdgeInsets.all(24.0),
           child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 BlocBuilder<CourseBloc, CourseState>(
                   builder: ((context, state) {
+                    print(state);
                     switch (state.runtimeType) {
                       case CourseEmpty:
                         {
@@ -52,9 +53,40 @@ class CoursePage extends StatelessWidget {
                             shrinkWrap: true,
                             itemCount: lista.length,
                             itemBuilder: ((context, index) {
-                              return ListTile(
-                                title: Text('${lista[index]}'),
-                              );
+                              return SizedBox(
+                                  // ignore: unnecessary_new
+                                  child: new Wrap(
+                                spacing: 10.0,
+                                runSpacing: 10.0,
+                                direction: Axis.horizontal,
+                                children: [
+                                  Card(
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    color: const Color(0xFFF5F5F5),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          child: Image.network(
+                                            lista[index].urlImage,
+                                            width: 100,
+                                            height: 100,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        // ignore: prefer_const_constructors
+                                        Align(
+                                          alignment:
+                                              const AlignmentDirectional(0, 0),
+                                          child: Text('${lista[index].title}'),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ));
                             }),
                           );
                         }
