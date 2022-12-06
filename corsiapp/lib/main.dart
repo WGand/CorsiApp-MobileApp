@@ -9,6 +9,7 @@ import 'package:corsiapp/Utilities/injection.dart' as di;
 import 'Presentation/bloc/course_bloc.dart';
 import 'Presentation/bloc/lesson_bloc.dart';
 import 'Presentation/pages/course.dart';
+import 'Presentation/pages/lesson.dart';
 
 void main() async {
   di.init();
