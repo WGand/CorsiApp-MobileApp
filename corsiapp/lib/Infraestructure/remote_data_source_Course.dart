@@ -20,8 +20,7 @@ class RemoteDataSourceImplCourse implements RemoteDataSource {
     if (response.statusCode == 200) {
       return parseCourse(response.body);
     } else {
-      print('Busca el respositorio CURSO');
-      return getCoursesfromRepo();
+      return await getCoursesfromRepo();
     }
   }
 
@@ -29,6 +28,7 @@ class RemoteDataSourceImplCourse implements RemoteDataSource {
     final db = await SQLliteDatabase().openDB();
     final List<Map<String, dynamic>> maps = await db.query('Course');
     return List.generate(maps.length, (i) {
+      print(maps[i]['description']);
       return Course(
           id: maps[i]['id'],
           title: maps[i]['title'],
