@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../Domain/Course/course.dart';
 import '../bloc/course_bloc.dart';
+import '../pages/lesson.dart';
 
 class CoursePage extends StatelessWidget {
   const CoursePage({Key? key}) : super(key: key);
@@ -14,10 +15,22 @@ class CoursePage extends StatelessWidget {
     context.read<CourseBloc>().add(CourseRequested());
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
         title: Text(
           'Cursos',
-          style: TextStyle(color: Colors.pinkAccent),
+          style: TextStyle(color: Color.fromARGB(255, 203, 197, 204)),
+          textAlign: TextAlign.center,
+        ),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            // LinearGradient
+            gradient: LinearGradient(
+              // colors for gradient
+              colors: [
+                Color.fromARGB(255, 82, 159, 247),
+                Color.fromARGB(255, 87, 85, 214),
+              ],
+            ),
+          ),
         ),
       ),
       body: Padding(
@@ -64,27 +77,59 @@ class CoursePage extends StatelessWidget {
                                 children: [
                                   Card(
                                     clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    color: const Color(0xFFF5F5F5),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          child: Image.network(
-                                            lista[index].urlImage,
-                                            width: 100,
-                                            height: 100,
-                                            fit: BoxFit.cover,
+                                    color: Color.fromARGB(255, 50, 166, 212),
+                                    child: TextButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    LessonPage()));
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.all(8.0),
+                                        decoration: BoxDecoration(
+                                          // LinearGradient
+                                          gradient: LinearGradient(
+                                            // colors for gradient
+                                            colors: [
+                                              Color.fromARGB(255, 82, 159, 247),
+                                              Color.fromARGB(255, 87, 85, 214),
+                                            ],
                                           ),
                                         ),
-                                        // ignore: prefer_const_constructors
-                                        Align(
-                                          alignment:
-                                              const AlignmentDirectional(0, 0),
-                                          child: Text('${lista[index].title}'),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                              child: Image.network(
+                                                lista[index].urlImage,
+                                                width: 100,
+                                                height: 100,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                            // ignore: prefer_const_constructors
+                                            Align(
+                                              alignment:
+                                                  const AlignmentDirectional(
+                                                      0, 0),
+                                              child: Text(
+                                                '${lista[index].title}',
+                                                style: TextStyle(
+                                                  fontSize: 18,
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
+                                      ),
                                     ),
                                   )
                                 ],
@@ -112,77 +157,4 @@ class CoursePage extends StatelessWidget {
           )),
     );
   }
-
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     appBar: AppBar(
-  //       backgroundColor: Colors.blue,
-  //       title: const Text('Prueba'),
-  //     ),
-  //     body: Padding(
-  //       padding: const EdgeInsets.all(24.0),
-  //       child: ListView(
-  //         padding: EdgeInsets.zero,
-  //         scrollDirection: Axis.vertical,
-  //         children: [
-  //           Card(
-  //             clipBehavior: Clip.antiAliasWithSaveLayer,
-  //             color: const Color(0xFFF5F5F5),
-  //             child: Row(
-  //               mainAxisSize: MainAxisSize.max,
-  //               children: [
-  //                 ClipRRect(
-  //                   borderRadius: BorderRadius.circular(10),
-  //                   child: Image.network(
-  //                     'https://picsum.photos/seed/31/600',
-  //                     width: 100,
-  //                     height: 100,
-  //                     fit: BoxFit.cover,
-  //                   ),
-  //                 ),
-  //                 // ignore: prefer_const_constructors
-  //                 Align(
-  //                   alignment: const AlignmentDirectional(0, 0),
-  //                   child: const Text(
-  //                     'Hello World',
-  //                     textAlign: TextAlign.center,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //           )
-
-  // ignore: prefer_const_constructors
-
-  // Card(
-  //   clipBehavior: Clip.antiAliasWithSaveLayer,
-  //   color: const Color(0xFFF5F5F5),
-  //   child: Row(
-  //     mainAxisSize: MainAxisSize.max,
-  //     children: [
-  //       ClipRRect(
-  //         borderRadius: BorderRadius.circular(10),
-  //         child: Image.network(
-  //           'https://picsum.photos/seed/31/600',
-  //           width: 100,
-  //           height: 100,
-  //           fit: BoxFit.cover,
-  //         ),
-  //       ),
-  //       // ignore: prefer_const_constructors
-  //       Align(
-  //         alignment: const AlignmentDirectional(0, 0),
-  //         child: const Text(
-  //           'Hello World',
-  //           textAlign: TextAlign.center,
-  //         ),
-  //       ),
-  //     ],
-  //   ),
-  // ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
 }
