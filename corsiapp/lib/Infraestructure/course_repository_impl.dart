@@ -17,6 +17,7 @@ class CourseRepositoryImpl implements ICourseRepository {
   Future<Either<Failure, List<Course>>> findAllCourses() async {
     try {
       final result = await remoteDataSource.getCoursefromAPI();
+      jsonCourseToBd(result);
       return Right(result);
     } on ServerException {
       return const Left(ServerFailure(''));

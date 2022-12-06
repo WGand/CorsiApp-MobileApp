@@ -18,7 +18,6 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
           emit(CourseError(failure.message));
         },
         (data) {
-          CourseRepositoryImpl().jsonCourseToBd(data);
           emit(CourseHasData(data));
         },
       );
