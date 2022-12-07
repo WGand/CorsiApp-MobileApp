@@ -5,11 +5,11 @@ import 'package:corsiapp/Domain/Repositories/lesson.dart';
 import 'package:corsiapp/Infraestructure/course_repository_impl.dart';
 import 'package:corsiapp/Infraestructure/lesson_repository_impl.dart';
 import 'package:corsiapp/Infraestructure/remote_data_source_course.dart';
-import 'package:corsiapp/Infraestructure/remote_data_source_lesson.dart';
 import 'package:corsiapp/Presentation/bloc/course_bloc.dart';
 import 'package:corsiapp/Presentation/bloc/lesson_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
+import '../Infraestructure/remote_data_source_lesson.dart';
 
 final locator = GetIt.instance;
 

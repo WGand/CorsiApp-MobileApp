@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:corsiapp/Domain/Course/lesson.dart';
 import 'package:corsiapp/Domain/Repositories/lesson.dart';
-import 'package:corsiapp/Infraestructure/remote_data_source_lesson.dart';
+import 'package:corsiapp/Infraestructure/remote_data_source_Lesson.dart';
 import 'package:dartz/dartz.dart';
 import 'package:corsiapp/Utilities/failure.dart';
 

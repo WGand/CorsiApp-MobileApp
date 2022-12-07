@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:corsiapp/Domain/Course/course.dart';
-import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'database.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
