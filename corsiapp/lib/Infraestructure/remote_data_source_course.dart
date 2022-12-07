@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:corsiapp/Domain/Course/course.dart';
 import 'package:http/http.dart' as http;
-
 import 'database.dart';
+
 abstract class RemoteDataSourceCourses {
   Future<List<Course>> getCoursefromAPI();
 }
@@ -27,7 +27,6 @@ class RemoteDataSourceImplCourse implements RemoteDataSourceCourses {
     final db = await SQLliteDatabase().openDB();
     final List<Map<String, dynamic>> maps = await db.query('Course');
     return List.generate(maps.length, (i) {
-      print(maps[i]['description']);
       return Course(
           id: maps[i]['id'],
           title: maps[i]['title'],

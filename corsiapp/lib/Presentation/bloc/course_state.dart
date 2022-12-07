@@ -1,4 +1,3 @@
-import 'package:corsiapp/Domain/Course/lesson.dart';
 import 'package:equatable/equatable.dart';
 import '../../Domain/Course/course.dart';
 

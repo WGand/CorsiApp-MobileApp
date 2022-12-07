@@ -10,7 +10,7 @@ abstract class LessonEvent extends Equatable {
 class LessonsRequested extends LessonEvent {
   final int courseId;
 
-  LessonsRequested(this.courseId);
+  const LessonsRequested(this.courseId);
 
   @override
   List<Object?> get props => [courseId];

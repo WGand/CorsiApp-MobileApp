@@ -1,5 +1,3 @@
-import 'dart:js_util';
-
 import 'package:corsiapp/Presentation/bloc/course_state.dart';
 import 'package:corsiapp/Presentation/bloc/course_event.dart';
 import 'package:flutter/material.dart';
@@ -14,17 +12,17 @@ class CoursePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<CourseBloc>().add(CourseRequested());
+    context.read<CourseBloc>().add(const CourseRequested());
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 78, 75, 75),
+      backgroundColor: const Color.fromARGB(255, 78, 75, 75),
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Cursos',
           style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
           textAlign: TextAlign.center,
         ),
         flexibleSpace: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             // LinearGradient
             gradient: LinearGradient(
               // colors for gradient
@@ -39,23 +37,22 @@ class CoursePage extends StatelessWidget {
       body: Padding(
           padding: const EdgeInsets.all(5.0),
           child: SingleChildScrollView(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 BlocBuilder<CourseBloc, CourseState>(
                   builder: ((context, state) {
-                    print(state);
                     switch (state.runtimeType) {
                       case CourseEmpty:
                         {
-                          return Center(
+                          return const Center(
                             child: Text('Empty'),
                           );
                         }
                       case CourseLoading:
                         {
-                          return Center(
+                          return const Center(
                             child: Text('Loading'),
                           );
                         }
@@ -80,7 +77,8 @@ class CoursePage extends StatelessWidget {
                                 children: [
                                   Card(
                                     clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    color: Color.fromARGB(255, 78, 75, 75),
+                                    color:
+                                        const Color.fromARGB(255, 78, 75, 75),
                                     child: TextButton(
                                       onPressed: () {
                                         Navigator.push(
@@ -94,10 +92,10 @@ class CoursePage extends StatelessWidget {
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 0.99,
-                                        padding: EdgeInsets.all(5.0),
+                                        padding: const EdgeInsets.all(5.0),
                                         decoration: BoxDecoration(
                                           // LinearGradient
-                                          gradient: LinearGradient(
+                                          gradient: const LinearGradient(
                                             // colors for gradient
                                             colors: [
                                               Color.fromARGB(255, 3, 200, 214),
@@ -131,8 +129,8 @@ class CoursePage extends StatelessWidget {
                                                       const AlignmentDirectional(
                                                           0, 0),
                                                   child: Text(
-                                                    '${lista[index].title}',
-                                                    style: TextStyle(
+                                                    lista[index].title,
+                                                    style: const TextStyle(
                                                       fontSize: 16,
                                                       color: Color.fromARGB(
                                                           253, 255, 255, 255),
@@ -141,14 +139,14 @@ class CoursePage extends StatelessWidget {
                                                     ),
                                                   ),
                                                 ),
-                                                Divider(),
+                                                const Divider(),
                                                 Align(
                                                   alignment:
                                                       const AlignmentDirectional(
                                                           0, 0),
                                                   child: Text(
-                                                    '${lista[index].description}',
-                                                    style: TextStyle(
+                                                    lista[index].description,
+                                                    style: const TextStyle(
                                                       fontSize: 12,
                                                       color: Color.fromARGB(
                                                           253, 255, 255, 255),
@@ -171,13 +169,13 @@ class CoursePage extends StatelessWidget {
                         }
                       case CourseError:
                         {
-                          return Center(
+                          return const Center(
                             child: Text('Error'),
                           );
                         }
                       default:
                         {
-                          return Center(
+                          return const Center(
                             child: Text('Error 3'),
                           );
                         }

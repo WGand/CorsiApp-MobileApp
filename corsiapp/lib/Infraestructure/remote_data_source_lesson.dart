@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:corsiapp/Domain/Course/lesson.dart';
 import 'package:http/http.dart' as http;
-
 import 'database.dart';
 
 abstract class RemoteDataSourceLessons {
@@ -20,7 +19,6 @@ class RemoteDataSourceImplLesson implements RemoteDataSourceLessons {
     if (response.statusCode == 200) {
       return parseLesson(response.body);
     } else {
-      print('Busca el respositorio LECCION');
       return getLessonsfromRepo();
     }
   }
