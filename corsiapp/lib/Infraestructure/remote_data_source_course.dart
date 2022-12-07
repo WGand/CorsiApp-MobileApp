@@ -44,6 +44,17 @@ class RemoteDataSourceImplCourse implements RemoteDataSourceCourses {
 
   List<Course> parseCourse(String responseBody) {
     final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
-    return parsed.map<Course>((json) => Course.fromJson(json)).toList();
+    final whatever =
+        parsed.map<Course>((json) => Course.fromJson(json)).toList();
+    final List<Course> lista = [];
+    for (Course x in whatever) {
+      if (x.description.isNotEmpty &&
+          x.id > 0 &&
+          x.title.isNotEmpty &&
+          x.urlImage.isNotEmpty) {
+        lista.add(x);
+      }
+    }
+    return lista;
   }
 }
