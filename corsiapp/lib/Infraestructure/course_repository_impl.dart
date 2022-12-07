@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:sqflite/sqflite.dart';
+
 import 'database.dart';
 import 'package:corsiapp/Domain/Course/course.dart';
 import 'package:corsiapp/Domain/Repositories/course.dart';
@@ -29,7 +31,8 @@ class CourseRepositoryImpl implements ICourseRepository {
   @override
   Future<void> insertCourse(Course course) async {
     final db = await SQLliteDatabase().openDB();
-    await db.insert('Course', course.toMap());
+    await db.insert('Course', course.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   Future<void> jsonCourseToBd(List<Course> courseList) async {

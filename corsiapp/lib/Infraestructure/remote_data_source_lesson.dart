@@ -17,7 +17,6 @@ class RemoteDataSourceImplLesson implements RemoteDataSourceLessons {
   Future<List<Lesson>> getLessonfromAPI(int id) async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult != ConnectivityResult.none) {
-      print('Tengo INTERNET');
       final response = await client.get(Uri.parse(
           'https://638d2212eafd555746b5c932.mockapi.io/CorsiApp/Courses/$id/lessons'));
       if (response.statusCode == 200) {
