@@ -27,7 +27,8 @@ class Course extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'urlImage': urlImage,
+      'title': title,
+      'urlimage': urlImage,
       'description': description,
     };
   }

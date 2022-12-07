@@ -5,6 +5,7 @@ import 'package:corsiapp/Infraestructure/remote_data_source_Lesson.dart';
 import 'package:dartz/dartz.dart';
 import 'package:corsiapp/Utilities/failure.dart';
 
+import 'database.dart';
 import 'exception.dart';
 
 class LessonRepositoryImpl implements ILessonRepository {
@@ -21,6 +22,19 @@ class LessonRepositoryImpl implements ILessonRepository {
       return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
+    }
+  }
+
+  @override
+  Future<void> insertLesson(Lesson lesson) async {
+    final db = await SQLliteDatabase().openDB();
+    await db.insert('Lesson', lesson.toMap());
+  }
+
+  Future<void> jsonLessonToBd(List<Lesson> lessonList) async {
+    for (var i = 0; i < lessonList.length; i++) {
+      Lesson lesson = lessonList[i];
+      insertLesson(lesson);
     }
   }
 }
