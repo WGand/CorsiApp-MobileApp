@@ -9,7 +9,7 @@ import 'package:corsiapp/Utilities/failure.dart';
 import 'exception.dart';
 
 class CourseRepositoryImpl implements ICourseRepository {
-  final RemoteDataSource remoteDataSource;
+  final RemoteDataSourceCourses remoteDataSource;
 
   CourseRepositoryImpl({required this.remoteDataSource});
 

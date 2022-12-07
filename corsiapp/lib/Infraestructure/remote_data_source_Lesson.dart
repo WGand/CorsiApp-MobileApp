@@ -4,17 +4,16 @@ import 'package:http/http.dart' as http;
 
 import 'database.dart';
 
-abstract class RemoteDataSource {
-  Future<List<Lesson>> getLessonfromAPI();
+abstract class RemoteDataSourceLessons {
+  Future<List<Lesson>> getLessonfromAPI(int courseId);
 }
 
-class RemoteDataSourceImplLesson implements RemoteDataSource {
+class RemoteDataSourceImplLesson implements RemoteDataSourceLessons {
   final http.Client client;
-  final int id;
-  RemoteDataSourceImplLesson(this.id, {required this.client});
+  RemoteDataSourceImplLesson({required this.client});
 
   @override
-  Future<List<Lesson>> getLessonfromAPI() async {
+  Future<List<Lesson>> getLessonfromAPI(id) async {
     final response = await client.get(Uri.parse(
         'https://638d2212eafd555746b5c932.mockapi.io/CorsiApp/Courses/$id/lessons'));
 

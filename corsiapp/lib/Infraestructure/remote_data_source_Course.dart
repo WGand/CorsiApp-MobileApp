@@ -3,12 +3,11 @@ import 'package:corsiapp/Domain/Course/course.dart';
 import 'package:http/http.dart' as http;
 
 import 'database.dart';
-
-abstract class RemoteDataSource {
+abstract class RemoteDataSourceCourses {
   Future<List<Course>> getCoursefromAPI();
 }
 
-class RemoteDataSourceImplCourse implements RemoteDataSource {
+class RemoteDataSourceImplCourse implements RemoteDataSourceCourses {
   final http.Client client;
   RemoteDataSourceImplCourse({required this.client});
 
