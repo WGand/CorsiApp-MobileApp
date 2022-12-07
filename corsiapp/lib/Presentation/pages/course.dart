@@ -14,10 +14,11 @@ class CoursePage extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<CourseBloc>().add(CourseRequested());
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 78, 75, 75),
       appBar: AppBar(
         title: Text(
           'Cursos',
-          style: TextStyle(color: Color.fromARGB(255, 203, 197, 204)),
+          style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
           textAlign: TextAlign.center,
         ),
         flexibleSpace: Container(
@@ -26,8 +27,8 @@ class CoursePage extends StatelessWidget {
             gradient: LinearGradient(
               // colors for gradient
               colors: [
-                Color.fromARGB(255, 82, 159, 247),
-                Color.fromARGB(255, 87, 85, 214),
+                Color.fromARGB(255, 3, 200, 214),
+                Color.fromARGB(166, 2, 204, 255),
               ],
             ),
           ),
@@ -77,7 +78,7 @@ class CoursePage extends StatelessWidget {
                                 children: [
                                   Card(
                                     clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    color: Color.fromARGB(255, 50, 166, 212),
+                                    color: Color.fromARGB(255, 78, 75, 75),
                                     child: TextButton(
                                       onPressed: () {
                                         Navigator.push(
@@ -89,16 +90,22 @@ class CoursePage extends StatelessWidget {
                                                             lista[index].id)));
                                       },
                                       child: Container(
-                                        padding: EdgeInsets.all(8.0),
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.99,
+                                        padding: EdgeInsets.all(5.0),
                                         decoration: BoxDecoration(
                                           // LinearGradient
                                           gradient: LinearGradient(
                                             // colors for gradient
                                             colors: [
-                                              Color.fromARGB(255, 82, 159, 247),
-                                              Color.fromARGB(255, 87, 85, 214),
+                                              Color.fromARGB(255, 3, 200, 214),
+                                              Color.fromARGB(166, 2, 204, 255),
                                             ],
                                           ),
+
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                         ),
                                         child: Row(
                                           mainAxisAlignment:
@@ -107,28 +114,35 @@ class CoursePage extends StatelessWidget {
                                           children: [
                                             ClipRRect(
                                               borderRadius:
-                                                  BorderRadius.circular(30),
+                                                  BorderRadius.circular(12),
                                               child: Image.network(
                                                 lista[index].urlImage,
                                                 width: 100,
                                                 height: 100,
-                                                fit: BoxFit.cover,
+                                                fit: BoxFit.contain,
                                               ),
                                             ),
                                             // ignore: prefer_const_constructors
-                                            Align(
-                                              alignment:
-                                                  const AlignmentDirectional(
-                                                      0, 0),
-                                              child: Text(
-                                                '${lista[index].title}',
-                                                style: TextStyle(
-                                                  fontSize: 18,
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w700,
+
+                                            Column(
+                                              children: [
+                                                Align(
+                                                  alignment:
+                                                      const AlignmentDirectional(
+                                                          0, 0),
+                                                  child: Text(
+                                                    '${lista[index].title}',
+                                                    style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: Color.fromARGB(
+                                                          253, 255, 255, 255),
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
+                                              ],
+                                            )
                                           ],
                                         ),
                                       ),
