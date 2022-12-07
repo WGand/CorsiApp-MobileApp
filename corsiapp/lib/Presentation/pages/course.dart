@@ -1,3 +1,5 @@
+import 'dart:js_util';
+
 import 'package:corsiapp/Presentation/bloc/course_state.dart';
 import 'package:corsiapp/Presentation/bloc/course_event.dart';
 import 'package:flutter/material.dart';
@@ -86,8 +88,7 @@ class CoursePage extends StatelessWidget {
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     LessonPage(
-                                                        courseId:
-                                                            lista[index].id)));
+                                                        course: lista[index])));
                                       },
                                       child: Container(
                                         width:
@@ -103,7 +104,6 @@ class CoursePage extends StatelessWidget {
                                               Color.fromARGB(166, 2, 204, 255),
                                             ],
                                           ),
-
                                           borderRadius:
                                               BorderRadius.circular(15),
                                         ),
@@ -138,6 +138,22 @@ class CoursePage extends StatelessWidget {
                                                           253, 255, 255, 255),
                                                       fontWeight:
                                                           FontWeight.w700,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Divider(),
+                                                Align(
+                                                  alignment:
+                                                      const AlignmentDirectional(
+                                                          0, 0),
+                                                  child: Text(
+                                                    '${lista[index].description}',
+                                                    style: TextStyle(
+                                                      fontSize: 12,
+                                                      color: Color.fromARGB(
+                                                          253, 255, 255, 255),
+                                                      fontWeight:
+                                                          FontWeight.w400,
                                                     ),
                                                   ),
                                                 ),
