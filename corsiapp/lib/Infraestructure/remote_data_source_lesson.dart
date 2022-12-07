@@ -19,7 +19,7 @@ class RemoteDataSourceImplLesson implements RemoteDataSourceLessons {
     if (response.statusCode == 200) {
       return parseLesson(response.body);
     } else {
-      return getLessonsfromRepo();
+      return await getLessonsfromRepo();
     }
   }
 
