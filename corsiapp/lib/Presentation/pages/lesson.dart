@@ -174,7 +174,7 @@ class LessonPage extends StatelessWidget {
                                             ],
                                           ),
                                         ),
-                                        child: Row(
+                                        child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           mainAxisSize: MainAxisSize.max,
