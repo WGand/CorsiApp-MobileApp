@@ -6,7 +6,7 @@ import 'package:dartz/dartz.dart';
 import 'package:corsiapp/Utilities/failure.dart';
 
 import 'database.dart';
-import 'exception.dart';
+import '../Utilities/exception.dart';
 
 class LessonRepositoryImpl implements ILessonRepository {
   final RemoteDataSourceLessons remoteDataSource;

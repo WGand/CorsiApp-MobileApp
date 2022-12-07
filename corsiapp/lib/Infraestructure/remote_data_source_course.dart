@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:corsiapp/Application/validate_course.dart';
 import 'package:corsiapp/Domain/Course/course.dart';
 import 'package:http/http.dart' as http;
 import 'database.dart';
@@ -43,17 +44,7 @@ class RemoteDataSourceImplCourse implements RemoteDataSourceCourses {
 
   List<Course> parseCourse(String responseBody) {
     final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
-    final whatever =
-        parsed.map<Course>((json) => Course.fromJson(json)).toList();
-    final List<Course> lista = [];
-    for (Course x in whatever) {
-      if (x.description.isNotEmpty &&
-          x.id > 0 &&
-          x.title.isNotEmpty &&
-          x.urlImage.isNotEmpty) {
-        lista.add(x);
-      }
-    }
-    return lista;
+    return validateCourse.validatecourse(
+        parsed.map<Course>((json) => Course.fromJson(json)).toList());
   }
 }
