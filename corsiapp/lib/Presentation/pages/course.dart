@@ -118,6 +118,12 @@ class CoursePage extends StatelessWidget {
                                                 width: 100,
                                                 height: 100,
                                                 fit: BoxFit.contain,
+                                                errorBuilder: (context, error,
+                                                    stackTrace) {
+                                                  // ignore: prefer_const_constructors
+                                                  return Text(
+                                                      'No se pudo cargar la imagen');
+                                                },
                                               ),
                                             ),
                                             // ignore: prefer_const_constructors
