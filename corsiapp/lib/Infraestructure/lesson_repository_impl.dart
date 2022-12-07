@@ -17,6 +17,7 @@ class LessonRepositoryImpl implements ILessonRepository {
   Future<Either<Failure, List<Lesson>>> findLessonsByCourseId(int id) async {
     try {
       final result = await remoteDataSource.getLessonfromAPI(id);
+      jsonLessonToBd(result);
       return Right(result);
     } on ServerException {
       return const Left(ServerFailure(''));

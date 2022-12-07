@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:corsiapp/Domain/Course/course.dart';
+import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'database.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 abstract class RemoteDataSourceCourses {
   Future<List<Course>> getCoursefromAPI();
@@ -13,11 +15,16 @@ class RemoteDataSourceImplCourse implements RemoteDataSourceCourses {
 
   @override
   Future<List<Course>> getCoursefromAPI() async {
-    final response = await client.get(Uri.parse(
-        'https://638d2212eafd555746b5c932.mockapi.io/CorsiApp/Courses'));
-
-    if (response.statusCode == 200) {
-      return parseCourse(response.body);
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult != ConnectivityResult.none) {
+      print('Tengo INTERNET');
+      final response = await client.get(Uri.parse(
+          'https://638d2212eafd555746b5c932.mockapi.io/CorsiApp/Courses'));
+      if (response.statusCode == 200) {
+        return parseCourse(response.body);
+      } else {
+        return await getCoursesfromRepo();
+      }
     } else {
       return await getCoursesfromRepo();
     }
