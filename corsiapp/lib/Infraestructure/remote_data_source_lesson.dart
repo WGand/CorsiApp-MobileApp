@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:corsiapp/Application/validate_lesson.dart';
 import 'package:corsiapp/Domain/Course/lesson.dart';
 import 'package:http/http.dart' as http;
 import 'database.dart';
@@ -43,6 +44,7 @@ class RemoteDataSourceImplLesson implements RemoteDataSourceLessons {
 
   List<Lesson> parseLesson(String responseBody) {
     final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
-    return parsed.map<Lesson>((json) => Lesson.fromJson(json)).toList();
+    return validateLesson.validatecourse(
+        parsed.map<Lesson>((json) => Lesson.fromJson(json)).toList());
   }
 }
