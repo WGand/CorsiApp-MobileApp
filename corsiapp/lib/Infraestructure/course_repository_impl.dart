@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:sqflite/sqflite.dart';
-
 import 'database.dart';
 import 'package:corsiapp/Domain/Course/course.dart';
 import 'package:corsiapp/Domain/Repositories/course.dart';

@@ -4,6 +4,7 @@ import 'package:corsiapp/Domain/Repositories/lesson.dart';
 import 'package:corsiapp/Infraestructure/remote_data_source_lesson.dart';
 import 'package:dartz/dartz.dart';
 import 'package:corsiapp/Utilities/failure.dart';
+import 'package:sqflite/sqflite.dart';
 
 import 'database.dart';
 import '../Utilities/exception.dart';
@@ -29,7 +30,8 @@ class LessonRepositoryImpl implements ILessonRepository {
   @override
   Future<void> insertLesson(Lesson lesson) async {
     final db = await SQLliteDatabase().openDB();
-    await db.insert('Lesson', lesson.toMap());
+    await db.insert('Lesson', lesson.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   Future<void> jsonLessonToBd(List<Lesson> lessonList) async {
