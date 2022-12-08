@@ -58,17 +58,13 @@ class CoursePage extends StatelessWidget {
                         {
                           var lista = state.props.elementAt(0) as List<Course>;
 
-                          // return Center(
-                          //   child: Text('asdasd'),
-                          // );
                           return ListView.builder(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: lista.length,
                             itemBuilder: ((context, index) {
                               return SizedBox(
-                                  // ignore: unnecessary_new
-                                  child: new Wrap(
+                                  child: Wrap(
                                 spacing: 5.0,
                                 runSpacing: 5.0,
                                 direction: Axis.horizontal,
@@ -126,7 +122,6 @@ class CoursePage extends StatelessWidget {
                                               ),
                                             ),
                                             // ignore: prefer_const_constructors
-
                                             Column(
                                               children: [
                                                 Align(

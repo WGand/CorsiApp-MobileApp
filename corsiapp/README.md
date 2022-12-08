@@ -4,13 +4,31 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+## Installation
 
-A few resources to get you started if this is your first Flutter project:
+```bash
+# Clean the dependencies
+$ flutter clean
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+# Get the dependencies
+$ flutter pub get
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Running the app
+
+Execute this commands combinations
+
+```bash
+# Select the device
+$ Ctrl + Shift + P
+
+# Select the option:
+$ Flutter: Select Device
+```
+
+Then select the device where you want to run the app
+
+```bash
+# Run the app
+$ f5
+```

@@ -136,9 +136,6 @@ class LessonPage extends StatelessWidget {
                         {
                           var lista = state.props.elementAt(0) as List<Lesson>;
 
-                          // return Center(
-                          //   child: Text('asdasd'),
-                          // );
                           return ListView.builder(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
