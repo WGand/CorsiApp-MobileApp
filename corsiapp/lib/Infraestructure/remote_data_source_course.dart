@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:corsiapp/Application/validate_course.dart';
 import 'package:corsiapp/Domain/Course/course.dart';
+import 'package:corsiapp/Infraestructure/conectivity_chequer.dart';
 import 'package:http/http.dart' as http;
 import 'database.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 
 abstract class RemoteDataSourceCourses {
   Future<List<Course>> getCoursefromAPI();
@@ -15,8 +15,7 @@ class RemoteDataSourceImplCourse implements RemoteDataSourceCourses {
 
   @override
   Future<List<Course>> getCoursefromAPI() async {
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult != ConnectivityResult.none) {
+    if (await const ConectivityCheck().checkConectivity()) {
       final response = await client.get(Uri.parse(
           'https://638d2212eafd555746b5c932.mockapi.io/CorsiApp/Courses'));
       if (response.statusCode == 200) {
@@ -32,13 +31,8 @@ class RemoteDataSourceImplCourse implements RemoteDataSourceCourses {
   Future<List<Course>> getCoursesfromRepo() async {
     final db = await SQLliteDatabase().openDB();
     final List<Map<String, dynamic>> maps = await db.query('Course');
-    return List.generate(maps.length, (i) {
-      return Course(
-          id: maps[i]['id'],
-          title: maps[i]['title'],
-          urlImage: maps[i]['urlImage'],
-          description: maps[i]['description']);
-    });
+    return validateCourse.validatecourse(
+        maps.map<Course>((json) => Course.fromJson(json)).toList());
   }
 
   List<Course> parseCourse(String responseBody) {

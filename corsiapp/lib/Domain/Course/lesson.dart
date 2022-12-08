@@ -12,11 +12,20 @@ class Lesson extends Equatable {
   final String lessonTitle;
 
   factory Lesson.fromJson(Map<String, dynamic> json) {
-    final int lessonId = int.parse(json['id']);
-    final int courseId = int.parse(json['CourseId']);
+    int idT;
+    int cidT;
+    if (json['id'].runtimeType == String) {
+      idT = int.parse(json['id']);
+    } else {
+      idT = json['id'];
+    }
+    if (json['CourseId'].runtimeType == String) {
+      cidT = int.parse(json['CourseId']);
+    } else {
+      cidT = json['CourseId'];
+    }
     final String lessonTitle = json['title'].toString();
-    return Lesson(
-        courseId: courseId, lessonId: lessonId, lessonTitle: lessonTitle);
+    return Lesson(courseId: cidT, lessonId: idT, lessonTitle: lessonTitle);
   }
 
   @override
@@ -24,9 +33,9 @@ class Lesson extends Equatable {
 
   Map<String, dynamic> toMap() {
     return {
-      'courseId': courseId,
-      'lessonId': lessonId,
-      'lessonTitle': lessonTitle,
+      'CourseId': courseId,
+      'id': lessonId,
+      'title': lessonTitle,
     };
   }
 }
