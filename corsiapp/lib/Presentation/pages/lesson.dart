@@ -1,5 +1,7 @@
 import 'package:corsiapp/Presentation/bloc/lesson_state.dart';
 import 'package:corsiapp/Presentation/bloc/lesson_event.dart';
+import 'package:corsiapp/Presentation/pages/widgets/error_messages.dart';
+import 'package:corsiapp/Presentation/pages/widgets/status_info_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../Domain/Course/lesson.dart';
@@ -81,7 +83,8 @@ class LessonPage extends StatelessWidget {
                             height: 100,
                             fit: BoxFit.contain,
                             errorBuilder: (context, error, stackTrace) {
-                              return Text('No se pudo cargar la imagen');
+                              return ErrorMessages.createMessage(
+                                  'No se pudo cargar la lección');
                             },
                           ),
                         ),
@@ -123,15 +126,11 @@ class LessonPage extends StatelessWidget {
                     switch (state.runtimeType) {
                       case LessonEmpty:
                         {
-                          return const Center(
-                            child: Text('Empty'),
-                          );
+                          return InfoMessage.createInfoMessage('Vacío');
                         }
                       case LessonLoading:
                         {
-                          return const Center(
-                            child: Text('Loading'),
-                          );
+                          return InfoMessage.createInfoMessage('Cargando');
                         }
                       case LessonHasData:
                         {
@@ -222,15 +221,12 @@ class LessonPage extends StatelessWidget {
                         }
                       case LessonError:
                         {
-                          return const Center(
-                            child: Text('Error'),
-                          );
+                          return ErrorMessages.createMessage(
+                              'error cargando la lección');
                         }
                       default:
                         {
-                          return const Center(
-                            child: Text('Error 3'),
-                          );
+                          return ErrorMessages.createMessage('error');
                         }
                     }
                   }),

@@ -1,5 +1,7 @@
 import 'package:corsiapp/Presentation/bloc/course_state.dart';
 import 'package:corsiapp/Presentation/bloc/course_event.dart';
+import 'package:corsiapp/Presentation/pages/widgets/error_messages.dart';
+import 'package:corsiapp/Presentation/pages/widgets/status_info_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -46,15 +48,11 @@ class CoursePage extends StatelessWidget {
                     switch (state.runtimeType) {
                       case CourseEmpty:
                         {
-                          return const Center(
-                            child: Text('Empty'),
-                          );
+                          return InfoMessage.createInfoMessage('Vacío');
                         }
                       case CourseLoading:
                         {
-                          return const Center(
-                            child: Text('Loading'),
-                          );
+                          return InfoMessage.createInfoMessage('Cargando');
                         }
                       case CourseHasData:
                         {
@@ -121,8 +119,9 @@ class CoursePage extends StatelessWidget {
                                                 errorBuilder: (context, error,
                                                     stackTrace) {
                                                   // ignore: prefer_const_constructors
-                                                  return Text(
-                                                      'No se pudo cargar la imagen');
+                                                  return ErrorMessages
+                                                      .createMessage(
+                                                          'No se pudo cargar la imagen');
                                                 },
                                               ),
                                             ),
@@ -175,15 +174,12 @@ class CoursePage extends StatelessWidget {
                         }
                       case CourseError:
                         {
-                          return const Center(
-                            child: Text('Error'),
-                          );
+                          return ErrorMessages.createMessage(
+                              'Error cargando el curso');
                         }
                       default:
                         {
-                          return const Center(
-                            child: Text('Error 3'),
-                          );
+                          return ErrorMessages.createMessage('error');
                         }
                     }
                   }),
